@@ -12,7 +12,7 @@ const isCrossword = (puzzle) => (puzzle.frontmatter.layout == '../components/cro
 	<h1>All Puzzles</h1>
 	<ol>
 	{
-		puzzles.map(puzzle => {
+		puzzles.reverse().map(puzzle => {
 			return (
 				<li>
 					<a href={puzzle.url}>

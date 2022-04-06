@@ -16,11 +16,11 @@
 						oninput="this.value = this.value.replace(/[^A-Za-z]/, '').toUpperCase()"
 						onfocus="
 							this.classList.remove('incorrect');
-							document.getElementById(`clue-across-${this.dataset.across}`).classList.add('selected');
-							document.getElementById(`clue-down-${this.dataset.down}`).classList.add('selected');"
+							document.getElementById(`clue-across-${this.dataset.across}`)?.classList.add('selected');
+							document.getElementById(`clue-down-${this.dataset.down}`)?.classList.add('selected');"
 						onblur="
-							document.getElementById(`clue-across-${this.dataset.across}`).classList.remove('selected');
-							document.getElementById(`clue-down-${this.dataset.down}`).classList.remove('selected');"
+							document.getElementById(`clue-across-${this.dataset.across}`)?.classList.remove('selected');
+							document.getElementById(`clue-down-${this.dataset.down}`)?.classList.remove('selected');"
 						:disabled="isEmptyTile(x, y)"
 						:data-x="x"
 						:data-y="y"

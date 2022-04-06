@@ -7,6 +7,9 @@ export function writtenDateFrom(date) {
 	                : (day == 3) ? 'rd'
 	                : 'th'
 
+	const yearString = (dateObj.getFullYear() == new Date().getFullYear()) ? ''
+	                 : ', ' + dateObj.getFullYear()
+
 	return dateObj.toLocaleString('default', { month: 'long', day: 'numeric' }) +
-		daySuffix + ', ' + dateObj.getFullYear()
+		daySuffix + yearString
 }
