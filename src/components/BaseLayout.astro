@@ -8,7 +8,7 @@ import Footer from './Footer.astro'
 <html>
 	<head>
 		<Metadata/>
-		<slot name="header"/>
+		<slot name="head"/>
 		<GlobalStyle/>
 	</head>
 	<body>
@@ -21,3 +21,16 @@ import Footer from './Footer.astro'
 		<Footer/>
 	</body>
 </html>
+
+<style>
+	body
+	{
+		margin: 0 auto;
+		padding: 30px 60px;
+	}
+
+	header
+	{
+		margin-bottom: 120px;
+	}
+</style>

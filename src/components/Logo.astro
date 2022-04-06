@@ -1,1 +1,57 @@
-<p>hi</p>
+<a href='https://guinane.xyz/Puzzles/' class="logo">
+	<span class="name">Puzzles</span>
+	<div class="tiles">
+		{'puzzles'.split('').map((_, i) => <span class="tile" style={`--delay: ${i};`}/>)}
+	</div>
+</a>
+
+<style>
+	a
+	{
+		font-size: 0.8rem;
+		text-decoration: none;
+		color: var(--background);
+		font-family: var(--tekst-mono);
+		letter-spacing: calc(1ch + 2px);
+		padding-left: calc(0.5ch + 1px);
+		position: relative;
+	}
+
+	.name
+	{
+		position: relative;
+		z-index: 99;
+		text-transform: uppercase;
+		user-select: none;
+	}
+
+	.tiles
+	{
+		position: absolute;
+		top: 0;
+		left: 0;
+	}
+
+	.tile
+	{
+		background: var(--semi-trans);
+		display: inline-block;
+		width: 2ch;
+		height: 2ch;
+		margin: 1px;
+	}
+
+	a:hover .tile
+	{
+		animation: flash 0.1s steps(1);
+		animation-delay: calc(var(--delay) * 0.1s);
+		animation-fill-mode: forwards;
+	}
+
+	@keyframes flash
+	{
+		from { background: var(--yellow); }
+		to { background: var(--foreground); }
+	}
+
+</style>

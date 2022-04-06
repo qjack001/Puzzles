@@ -1,6 +1,67 @@
 ---
-import Layout from '../components/BaseLayout.astro'
+import BaseLayout from '../components/BaseLayout.astro'
+import CrosswordIcon from '../components/crosswords/CrosswordIcon.astro'
+import * as util from '../utilities/dates'
+
+const puzzles = await Astro.glob('./*.md');
+
+const isCrossword = (puzzle) => (puzzle.frontmatter.layout == '../components/crosswords/Layout.astro')
 ---
-<Layout>
-	<h1>hi</h1>
-</Layout>
+<BaseLayout>
+	<title slot="head">Jack's Puzzles</title>
+	<h1>All Puzzles</h1>
+	<ol>
+	{
+		puzzles.map(puzzle => {
+			return (
+				<li>
+					<a href={puzzle.url}>
+						{isCrossword(puzzle) ? <CrosswordIcon grid={puzzle.frontmatter.grid}/> : undefined}
+						<span>
+							{puzzle.frontmatter.title},
+							published {util.writtenDateFrom(puzzle.frontmatter.date)}
+						</span>
+					</a>
+				</li>
+			)
+		})
+	}
+	</ol>
+</BaseLayout>
+
+<style>
+	h1
+	{
+		font-size: 1rem;
+	}
+
+	ol
+	{
+		padding: 0;
+		list-style: none;
+		margin-bottom: 120px;
+	}
+
+	li
+	{
+		font-size: 2rem;
+		margin: 30px 0;
+	}
+
+	a
+	{
+		text-decoration: none;
+		color: var(--semi-trans);
+
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		gap: 30px;
+
+
+		&:hover, &:focus
+		{
+			color: var(--foreground);
+		}
+	}
+</style>
