@@ -1,0 +1,49 @@
+<script is:inline>
+	const getFocusedInput = () => {
+		if (document.hasFocus() && document.activeElement.nodeName.toLowerCase() == 'input') {
+			return document.activeElement;
+		}
+		return undefined
+	}
+
+	const move = (direction) => {
+		const currentFocus = getFocusedInput()
+		if (!currentFocus) {
+			return
+		}
+
+		const moveIn = {
+			'ArrowLeft': (x, y) => [x, y - 1],
+			'ArrowRight': (x, y) => [x, y + 1],
+			'ArrowUp': (x, y) => [x - 1, y],
+			'ArrowDown': (x, y) => [x + 1, y],
+		}
+
+		const x = Number(currentFocus.dataset.x)
+		const y = Number(currentFocus.dataset.y)
+		const [newX, newY] = moveIn[direction](x, y)
+
+		const destination = document.getElementById(`crossword-cell-${newX}-${newY}`)
+		if (destination != undefined && destination != null && destination.dataset.answer != '#') {
+			destination.focus()
+			window.setTimeout(() => { 
+				destination.select()
+			}, 5)
+		}
+		else {
+			window.setTimeout(() => {
+				currentFocus.select()
+			}, 5)
+		}
+	}
+
+	document.addEventListener('keydown', (event) => {
+		if (event.key == 'ArrowLeft' ||
+			event.key == 'ArrowRight' ||
+			event.key == 'ArrowUp' ||
+			event.key == 'ArrowDown') {
+			
+			move(event.key)
+		}
+	})
+</script>

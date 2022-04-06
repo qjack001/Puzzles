@@ -1,0 +1,48 @@
+---
+const { grid } = Astro.props
+---
+<div class="crossword-icon" role="presentation">
+	{
+		grid.map(row => {
+			return (
+				<div class="row">
+				{
+					row.split('').map(cell => { 
+						return (
+							<div class={`${cell == '#' ? 'empty tile' : 'tile'}`}/>
+						)
+					})
+				}
+				</div>
+			)
+		})
+	}
+</div>
+
+<style>
+	.crossword-icon
+	{
+		display: flex;
+		flex-direction: column;
+		gap: 2px;
+	}
+
+	.row
+	{
+		display: flex;
+		flex-direction: row;
+		gap: 2px;
+	}
+
+	.tile
+	{
+		width: 10px;
+		height: 10px;
+		background: currentColor;
+	}
+
+	.tile.empty
+	{
+		background: var(--background);
+	}
+</style>

@@ -1,0 +1,105 @@
+---
+import BaseLayout from '../BaseLayout.astro'
+import Clues from './Clues.astro'
+import CrosswordBoard from './CrosswordBoard.vue'
+import ValidateButton from './ValidateButton.astro'
+import MovementControls from './MovementControls.astro'
+import * as util from '../../utilities/dates'
+
+const { content } = Astro.props
+const across = Object.entries(content.clues.across)
+const down = Object.entries(content.clues.down)
+
+---
+<BaseLayout>
+	<title slot="head">{content.title}</title>
+	<h1>
+		{content.title}<span>, published {util.writtenDateFrom(content.date)}</span>
+	</h1>
+	<div id="game">
+		<section class="clues">
+			<h2 class="screenreader-only">Clues</h2>
+			<section>
+				<h3>Across</h3>
+				<Clues list={across} type="across"/>
+			</section>
+			<section>
+				<h3>Down</h3>
+				<Clues list={down} type="down"/>
+			</section>
+		</section>
+		<section class="board">
+			<h2 class="screenreader-only">Board</h2>
+			<CrosswordBoard grid={content.grid}/>
+			<ValidateButton/>
+			<MovementControls/>
+		</section>
+	</div>
+</BaseLayout>
+
+<style>
+	:global(main)
+	{
+		display: flex;
+		flex-direction: column-reverse;
+		gap: 60px;
+	}
+
+	h1, h2, h3
+	{
+		font-family: var(--tekst-mono);
+		font-size: 1rem;
+		font-weight: normal;
+		letter-spacing: 0.02em;
+		margin: 10px 0;
+
+		& span
+		{
+			font-family: var(--tekst);
+			color: var(--semi-trans);
+		}
+	}
+
+	h3
+	{
+		text-transform: uppercase;
+		color: var(--semi-trans);
+	}
+
+	#game
+	{
+		display: flex;
+		flex-direction: row-reverse;
+		align-items: center;
+		max-width: max-content;
+		gap: 60px;
+	}
+
+	#game .board
+	{
+		min-width: max-content;
+	}
+
+	#game .clues
+	{
+		display: flex;
+		flex-direction: row;
+		gap: 30px;
+	}
+
+	@media (max-width: 820px)
+	{
+		#game
+		{
+			flex-direction: column-reverse;
+		}
+	}
+
+	@media (max-width: 560px)
+	{
+		#game .clues
+		{
+			flex-direction: column;
+		}
+	}
+</style>

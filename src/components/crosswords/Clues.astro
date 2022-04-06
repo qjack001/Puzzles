@@ -1,0 +1,33 @@
+---
+const { list, type } = Astro.props
+---
+<ol>
+{
+	list.map(clue => <li id={`clue-${type}-${clue[0]}`} value={clue[0]}>{clue[1]}</li>)
+}
+</ol>
+
+<style>
+	ol
+	{
+		padding-left: 5ch;
+		list-style-position: outside;
+	}
+
+	li
+	{
+		margin: 8px 0;
+		line-height: 1.4;
+	}
+
+	li::marker
+	{
+		color: var(--semi-trans);
+		font-family: var(--tekst-mono);
+	}
+
+	li.selected::marker
+	{
+		color: var(--yellow);
+	}
+</style>
