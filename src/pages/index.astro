@@ -53,8 +53,9 @@ const isCrossword = (puzzle) => (puzzle.frontmatter.layout == '../components/cro
 		text-decoration: none;
 		color: var(--semi-trans);
 
-		display: flex;
-		flex-direction: row;
+		display: grid;
+		grid-template-columns: 60px auto;
+		grid-template-rows: 60px;
 		align-items: center;
 		gap: 30px;
 
