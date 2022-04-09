@@ -1,4 +1,53 @@
 <script is:inline>
+	const dir = { across: 'across', down: 'down' }
+	let currentDirection = dir.across
+
+	const crosswordCellFocused = (cell) => {
+		cell.classList.remove('incorrect')
+		cell.onmousedown = () => { 
+			const otherDirection = (currentDirection == dir.across)
+				? dir.down
+				: dir.across
+
+			if (cell.dataset[otherDirection] == '#') {
+				return
+			}
+
+			changeDirection(otherDirection)
+			
+			document.querySelectorAll('input.highlight')
+				.forEach(square => square.classList.remove('highlight'))
+
+			document.querySelectorAll(`input[data-${currentDirection}="${cell.dataset[currentDirection]}"]`)
+				.forEach(square => square.classList.add('highlight'))
+		}
+
+		document.getElementById(`clue-across-${cell.dataset.across}`)?.classList.add('selected')
+		document.getElementById(`clue-down-${cell.dataset.down}`)?.classList.add('selected')
+
+		if (cell.dataset[currentDirection] == '#') {
+			changeDirection((currentDirection == dir.across) 
+				? dir.down
+				: dir.across)
+		}
+		document.querySelectorAll(`input[data-${currentDirection}="${cell.dataset[currentDirection]}"]`)
+			.forEach(square => square.classList.add('highlight'))
+	}
+
+	const crosswordCellBlurred = (cell) => {
+		cell.onmousedown = () => {}
+		document.getElementById(`clue-across-${cell.dataset.across}`)?.classList.remove('selected')
+		document.getElementById(`clue-down-${cell.dataset.down}`)?.classList.remove('selected')
+		document.querySelectorAll('input.highlight')
+			.forEach(square => square.classList.remove('highlight'))
+	}
+
+	const changeDirection = (newDirection) => {
+		if (currentDirection != newDirection) {
+			currentDirection = newDirection
+		}
+	}
+
 	const getFocusedInput = () => {
 		if (document.hasFocus() && document.activeElement.nodeName.toLowerCase() == 'input') {
 			return document.activeElement;
@@ -37,12 +86,29 @@
 		}
 	}
 
+	const crosswordCellInput = (cell) => {
+		cell.value = cell.value.replace(/[^A-Za-z]/, '').toUpperCase()
+		if (cell.value.length > 1) {
+			cell.value = cell.value[1]
+		}
+
+		if (cell.value.length > 0) {
+			move((currentDirection == dir.across)
+				? 'ArrowRight'
+				: 'ArrowDown')
+		}
+	}
+
 	document.addEventListener('keydown', (event) => {
 		if (event.key == 'ArrowLeft' ||
 			event.key == 'ArrowRight' ||
 			event.key == 'ArrowUp' ||
 			event.key == 'ArrowDown') {
-			
+
+			changeDirection((event.key == 'ArrowLeft' || event.key == 'ArrowRight')
+				? dir.across
+				: dir.down)
+
 			move(event.key)
 		}
 	})

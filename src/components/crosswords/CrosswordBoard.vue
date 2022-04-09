@@ -13,14 +13,9 @@
 						:id="`crossword-cell-${x}-${y}`"
 						type="text"
 						maxlength="1"
-						oninput="this.value = this.value.replace(/[^A-Za-z]/, '').toUpperCase()"
-						onfocus="
-							this.classList.remove('incorrect');
-							document.getElementById(`clue-across-${this.dataset.across}`)?.classList.add('selected');
-							document.getElementById(`clue-down-${this.dataset.down}`)?.classList.add('selected');"
-						onblur="
-							document.getElementById(`clue-across-${this.dataset.across}`)?.classList.remove('selected');
-							document.getElementById(`clue-down-${this.dataset.down}`)?.classList.remove('selected');"
+						oninput="crosswordCellInput(this)"
+						onfocus="crosswordCellFocused(this)"
+						onblur="crosswordCellBlurred(this)"
 						:disabled="isEmptyTile(x, y)"
 						:data-x="x"
 						:data-y="y"
@@ -134,6 +129,11 @@
 		&.incorrect
 		{
 			background: var(--red);
+		}
+
+		&.highlight
+		{
+			background: #e0c18d;
 		}
 
 		&::selection
