@@ -2,7 +2,8 @@
 	Check answer
 </button>
 <dialog id="dialog">
-	<p>🏆 Correct! Nice work.</p>
+	<p>Correct! Nice work.</p>
+	<video autoplay muted loop class="trophy" src="/trophy.mp4"/>
 	<form method="dialog">
 		<button>Close</button>
 	</form>
@@ -55,14 +56,17 @@
 		background: var(--background);
 		color: var(--foreground);
 		border: 2px solid var(--semi-trans);
+		text-align: center;
 
 		width: 80%;
 		max-width: 500px;
 		transform: translateY(-60px);
+		animation: fadein 0.3s ease, bouncein 0.3s cubic-bezier(.33,1.3,.8,1.18);
 
 		&::backdrop
 		{
 			background: rgba(0, 0, 0, 0.6);
+			animation: fadein 0.2s ease;
 		}
 
 		& p
@@ -77,10 +81,52 @@
 		{
 			font-size: 1rem;
 			width: 100%;
+			max-width: 300px;
 			text-align: center;
 
 			background: var(--foreground);
 			color: var(--background);
 		}
+	}
+
+	video.trophy
+	{
+		mix-blend-mode: color-dodge;
+		width: 100px;
+		animation: fadein 2s ease, scalein 2s ease;
+	}
+
+	@media (max-width: 500px)
+	{
+		button
+		{
+			font-size: 1rem;
+			line-height: 2;
+			padding: 0 2ch;
+		}
+
+		dialog button
+		{
+			font-size: 1.4rem;
+			padding: 0;
+		}
+	}
+
+	@keyframes fadein
+	{
+		from { opacity: 0; }
+		to { opacity: 1; }
+	}
+	
+	@keyframes bouncein
+	{
+		from { transform: scale(0.8) translateY(-60px); }
+		to { transform: scale(1) translateY(-60px); }
+	}
+
+	@keyframes scalein
+	{
+		from { transform: scale(0.6); }
+		to { transform: scale(1); }
 	}
 </style>
