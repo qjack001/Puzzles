@@ -87,16 +87,22 @@
 	}
 
 	const crosswordCellInput = (cell) => {
+		const isDelete = (window.event?.inputType == 'deleteContentBackward')
+
 		cell.value = cell.value.replace(/[^A-Za-z]/, '').toUpperCase()
 		if (cell.value.length > 1) {
 			cell.value = cell.value[1]
 		}
 
-		if (cell.value.length > 0) {
-			move((currentDirection == dir.across)
-				? 'ArrowRight'
-				: 'ArrowDown')
+		const nextMove = {
+			[dir.across]: 'ArrowRight',
+			[dir.down]: 'ArrowDown'
 		}
+		
+		if (!isDelete) {
+			move(nextMove[currentDirection])
+		}
+		
 	}
 
 	document.addEventListener('keydown', (event) => {
@@ -112,4 +118,18 @@
 			move(event.key)
 		}
 	})
+
+	document.addEventListener('keydown', (event) => {
+		if (event.key == "Backspace") {
+			const moveBack = {
+				[dir.across]: 'ArrowLeft',
+				[dir.down]: 'ArrowUp'
+			}
+
+			if (event.target?.value?.length == 0) {
+				console.log(event.target?.value)
+				move(moveBack[currentDirection])
+			}
+		}
+    })
 </script>
