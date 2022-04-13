@@ -19,11 +19,11 @@ const down = Object.entries(content.clues.down)
 	<div id="game">
 		<section class="clues">
 			<h2 class="screenreader-only">Clues</h2>
-			<section>
+			<section id="clues-across" class="selected">
 				<h3>Across</h3>
 				<Clues list={across} type="across"/>
 			</section>
-			<section>
+			<section id="clues-down">
 				<h3>Down</h3>
 				<Clues list={down} type="down"/>
 			</section>
@@ -101,10 +101,23 @@ const down = Object.entries(content.clues.down)
 		{
 			margin: auto;
 		}
-		
+
 		#game .clues
 		{
 			flex-direction: column;
+		}
+	}
+
+	@media (max-height: 500px)
+	{
+		#clues-across, #clues-down
+		{
+			display: none;
+		}
+
+		#clues-across.selected, #clues-down.selected
+		{
+			display: block;
 		}
 	}
 </style>

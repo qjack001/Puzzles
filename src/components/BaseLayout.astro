@@ -47,4 +47,17 @@ import Footer from './Footer.astro'
 			text-align: center;
 		}
 	}
+
+	@media (max-height: 500px)
+	{
+		header
+		{
+			display: none;
+		}
+
+		body
+		{
+			padding-top: 60px;
+		}
+	}
 </style>

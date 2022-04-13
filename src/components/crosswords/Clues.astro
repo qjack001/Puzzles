@@ -30,4 +30,21 @@ const { list, type } = Astro.props
 	{
 		color: var(--yellow);
 	}
+
+	@media (max-height: 500px)
+	{
+		li.selected
+		{
+			display: block;
+			position: absolute;
+			bottom: 0px;
+			left: 0px;
+			right: 0px;
+
+			text-align: center;
+			padding: 10px 5px;
+
+			background: var(--background);
+		}
+	}
 </style>

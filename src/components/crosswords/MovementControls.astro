@@ -45,6 +45,10 @@
 	const changeDirection = (newDirection) => {
 		if (currentDirection != newDirection) {
 			currentDirection = newDirection
+
+			document.getElementById('clues-across').classList.remove('selected')
+			document.getElementById('clues-down').classList.remove('selected')
+			document.getElementById(`clues-${currentDirection}`).classList.add('selected')
 		}
 	}
 
