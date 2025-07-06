@@ -13,7 +13,6 @@ Object.keys(content.groups)
 <BaseLayout>
 	<title slot="head">{content.title}</title>
 	<h1>
-		{Object.keys(content.groups).join(' ')}
 		{content.title}<span>, published {util.writtenDateFrom(content.date)}</span>
 	</h1>
 	<div id="game">
@@ -176,7 +175,8 @@ Object.keys(content.groups)
 		background: var(--semi-trans);
 		color: var(--background);
 		border: none;
-		padding: 0.5em 1ch;
+		padding: 0 1ch;
+		line-height: 2;
 		
 		font-family: var(--tekst);
 		font-size: 1.1rem;
