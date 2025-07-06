@@ -7,10 +7,13 @@ const { content } = Astro.props
 const base16 = '0123456789ABCDEF'.split('')
 const colors = 'yellow green blue purple'.split(' ')
 
+Object.keys(content.groups)
+
 ---
 <BaseLayout>
 	<title slot="head">{content.title}</title>
 	<h1>
+		{Object.keys(content.groups).join(' ')}
 		{content.title}<span>, published {util.writtenDateFrom(content.date)}</span>
 	</h1>
 	<div id="game">
@@ -39,7 +42,11 @@ const colors = 'yellow green blue purple'.split(' ')
 	</div>
 	<div id="answer-key" style="display: none">
 		{Object.entries(content.groups).map(([key, name], index) => (
-			<span id={key} data-name={name} data-color={colors[index]}/>
+			<span
+				id={key.slice(0, 4)/* in rare cases, extra letter added to force ordering as string */}
+				data-name={name}
+				data-color={colors[index]}
+			/>
 		))}
 	</div>
 
