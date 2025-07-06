@@ -70,24 +70,25 @@ Object.keys(content.groups)
 				.sort((a, b) => a.sort - b.sort)
 				.map(({value}) => value)
 
-			const tiles = document.querySelectorAll('.word-tile:not(.solved)').values()
+			const tiles = [...document.querySelectorAll('.word-tile:not(.solved)').values()]
 			tryTransition(() => {
 				tiles.forEach((tile, i) => tile.className = `word-tile ${positions[i]}`)
 			})
 		}
 
 		function deselect() {
-			document.querySelectorAll('#board input:checked').values().forEach((option) => {
-				option.checked = false
-			})
+			const selected = [...document.querySelectorAll('#board input:checked').values()]
+			selected.forEach((option) => option.checked = false)
 		}
 
 		function guess() {
-			const answer = document.getElementById(document.querySelectorAll('#board input:checked')
-				.values().toArray()
-				.map((option) => option.value)
-				.sort() // format guess to match answer key
-				.join(''))
+			const selected = [...document.querySelectorAll('#board input:checked').values()]
+			const answer = document.getElementById(
+				selected
+					.map((option) => option.value)
+					.sort() // format guess to match answer key
+					.join('')
+			)
 
 			if (!answer) {
 				document.getElementById('mistake-counter').innerHTML = ++mistakes
@@ -96,7 +97,7 @@ Object.keys(content.groups)
 				return
 			}
 
-			const tiles = document.querySelectorAll('#board input:checked + label').values()
+			const tiles = [...document.querySelectorAll('#board input:checked + label').values()]
 			const tileNames = []
 			const positions = positionClasses.slice(0, 4)
 			positionClasses = positionClasses.slice(4) // remove spots from pool
