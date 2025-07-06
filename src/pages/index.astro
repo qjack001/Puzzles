@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../components/BaseLayout.astro'
 import CrosswordIcon from '../components/crosswords/CrosswordIcon.astro'
+import ConnectionsIcon from '../components/connections/ConnectionsIcon.astro'
 import * as util from '../utilities/dates'
 
 const puzzles = await Astro.glob('./*.md');
@@ -16,7 +17,10 @@ const isCrossword = (puzzle) => (puzzle.frontmatter.layout == '../components/cro
 			return (
 				<li>
 					<a href={puzzle.url}>
-						{isCrossword(puzzle) ? <CrosswordIcon grid={puzzle.frontmatter.grid}/> : undefined}
+						{isCrossword(puzzle)
+							? <CrosswordIcon grid={puzzle.frontmatter.grid}/>
+							: <ConnectionsIcon/>
+						}
 						<span>
 							{puzzle.frontmatter.title},
 							published {util.writtenDateFrom(puzzle.frontmatter.date)}
