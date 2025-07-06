@@ -26,9 +26,12 @@ const colors = 'yellow green blue purple'.split(' ')
 			<div class="answer" id="answer-M"></div>
 		</section>
 		<section>
-			<h3>Mistakes:</h3>
-			<p id="mistake-counter">0</p>
-
+			<dl>
+				<dt>Mistakes:</dt>
+				<dd id="mistake-counter">0</dd>
+			</dl>
+		</section>
+		<section>
 			<button id="shuffle" onclick="shuffle()">Shuffle</button>
 			<button id="deselect" onclick="deselect()">Deselect</button>
 			<button id="submit" onclick="guess()">Submit</button>
@@ -159,6 +162,31 @@ const colors = 'yellow green blue purple'.split(' ')
 		margin: 0;
 	}
 
+	button
+	{
+		cursor: pointer;
+		user-select: none;
+		background: var(--semi-trans);
+		color: var(--background);
+		border: none;
+		padding: 0.5em 1ch;
+		
+		font-family: var(--tekst);
+		font-size: 1.1rem;
+		border-radius: 12px;
+
+		&:hover
+		{
+			background: var(--yellow);
+		}
+	}
+
+	dl
+	{
+		display: flex;
+		flex-direction: row;
+	}
+
 	label
 	{
 		cursor: pointer;
@@ -218,8 +246,8 @@ const colors = 'yellow green blue purple'.split(' ')
 	}
 
 	/* and activate the submit button */
-	#board:has(input:checked ~ input:checked ~input:checked ~ input:checked) + section button#submit,
-	#board:has(input:checked) + section button#deselect
+	#board:has(input:checked ~ input:checked ~input:checked ~ input:checked) ~ section button#submit,
+	#board:has(input:checked) ~ section button#deselect
 	{
 		pointer-events: all;
 		cursor: pointer;
