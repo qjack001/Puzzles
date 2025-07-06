@@ -7,13 +7,14 @@ import * as util from '../utilities/dates'
 const puzzles = await Astro.glob('./*.md');
 
 const isCrossword = (puzzle) => (puzzle.frontmatter.layout == '../components/crosswords/Layout.astro')
+const byDate = (a, b) => String(a.frontmatter.date).localeCompare(String(b.frontmatter.date))
 ---
 <BaseLayout>
 	<title slot="head">Jack's Puzzles</title>
 	<h1>All Puzzles</h1>
 	<ol>
 	{
-		puzzles.reverse().map(puzzle => {
+		puzzles.sort(byDate).reverse().map(puzzle => {
 			return (
 				<li>
 					<a href={puzzle.url}>
