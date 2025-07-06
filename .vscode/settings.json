@@ -6,7 +6,7 @@
 	"eslint.validate": ["mjs", "cjs", "javascript"],
 	"eslint.packageManager": "pnpm",
 	"editor.codeActionsOnSave": {
-		"source.fixAll.eslint": true
+		"source.fixAll.eslint": "explicit"
 	},
 	"files.exclude": {
 		"**/.git": true,
