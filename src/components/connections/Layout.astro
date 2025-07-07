@@ -20,7 +20,13 @@ Object.keys(content.groups)
 			<h2 class="screenreader-only">Board</h2>
 			{content.grid.map((word: string, i: number) => (
 				<input type="checkbox" id={`tile-${base16[i]}`} value={base16[i]} class="screenreader-only"/>
-				<label for={`tile-${base16[i]}`} class="word-tile" style={`view-transition-name: tile_${i}`}>{word}</label>
+				<label
+					for={`tile-${base16[i]}`}
+					class="word-tile"
+					style={`view-transition-name: tile_${i}; font-size: ${content.size ?? '1rem'}`}
+				>
+					{word}
+				</label>
 			))}
 			<div class="answer" id="answer-A"></div>
 			<div class="answer" id="answer-E"></div>
@@ -164,7 +170,7 @@ Object.keys(content.groups)
 
 	#board .answer :global(h4)
 	{
-		font-size: 1.5rem;
+		font-size: 1.3rem;
 		margin: 0;
 	}
 
@@ -208,9 +214,7 @@ Object.keys(content.groups)
 		border-radius: 6px;
 		background-color: var(--foreground);
 		color: var(--background);
-
 		font-weight: bold;
-		font-size: 1rem;
 
 		display: flex;
 		align-items: center;
